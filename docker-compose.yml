@@ -1,0 +1,18 @@
+# version: '3.8'
+
+# services:
+#   mongodb:
+#     image: mongo:latest
+#     container_name: mongodb
+#     restart: always
+#     ports:
+#       - "27017:27017"  # Mở cổng 27017 để kết nối từ máy host
+#     environment:
+#       MONGO_INITDB_ROOT_USERNAME: root     # Tên người dùng root
+#       MONGO_INITDB_ROOT_PASSWORD: example  # Mật khẩu của người dùng root
+#     volumes:
+#       - mongodb-data:/data/db  # Lưu trữ dữ liệu MongoDB vào volume Docker để dữ liệu không mất khi container tắt
+
+# volumes:
+#   mongodb-data:
+#     driver: local  # Dùng driver local để lưu trữ dữ liệu vào máy của bạn

@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Cats example 3333", "description": "The cats API description", "version": "1.0", "contact": {} },
+  "tags": [{ "name": "cats", "description": "" }],
+  "servers": [],
+  "paths": {
+    "/": {
+      "get": { "operationId": "AppController_health", "parameters": [], "responses": { "200": { "description": "" } } }
+    },
+    "/v1/job": {
+      "get": {
+        "operationId": "JobController_findMany",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/v1/job/{id}/callback": {
+      "post": {
+        "operationId": "JobController_callback",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } },
+          { "name": "signature", "required": true, "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "201": { "description": "" } }
+      }
+    },
+    "/v1/pair/{address}/social-score": {
+      "get": {
+        "operationId": "NewPairTokenController_getSocialScore",
+        "parameters": [
+          { "name": "address", "required": true, "in": "path", "schema": { "type": "string" } },
+          { "name": "callback", "required": true, "in": "query", "schema": { "type": "string" } },
+          { "name": "reload", "required": true, "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "" } }
+      }
+    }
+  },
+  "components": { "schemas": {} }
+}

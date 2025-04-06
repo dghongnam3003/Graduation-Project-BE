@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Campaign {
+  id              String @id @default(cuid()) @map("_id") @db.ObjectId
+  creator         String
+  campaignIndex   Int
+  name            String
+  symbol          String
+  uri             String
+  totalFundRaised Float
+  donationGoal    Float
+  depositDeadline Int
+  tradeDeadline   Int
+  timestamp       Int
+  mint            String?
+
+  @@map("campaigns")
+}
+
+model Transaction {
+  id        String @id @default(cuid()) @map("_id") @db.ObjectId
+  signature String
+  block     String
+  blockTime Int
+
+  @@map("transactions")
+}
+
+model AddTokenPumpProcesses {
+  id            String @id @default(cuid()) @map("_id") @db.ObjectId
+  campaignIndex Int
+  creator       String
+  status        String
+  mint          String?
+
+  @@map("add_token_pump_processes")
+}
+
+model SellProgress {
+  id               String @id @default(cuid()) @map("_id") @db.ObjectId
+  campaignIndex    Int      
+  mint             String?
+  creator          String
+  claimable_amount Int
+
+  @@map("sell_token_progress")
+}
