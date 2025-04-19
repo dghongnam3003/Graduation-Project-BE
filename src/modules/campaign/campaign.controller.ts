@@ -1,5 +1,6 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { CampaignService } from '@/modules/campaign/campaign.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('/campaign')
 export class CampaignController {
   constructor(private readonly campaignService: CampaignService) {}
@@ -42,6 +43,21 @@ export class CampaignController {
     return {
       data: campaignDetails,
       message: 'Campaign details retrieved successfully',
+    };
+  }
+
+  @Post('/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadMetadata(@UploadedFile() file: Express.Multer.File, @Body() body: { name: string; description: string }) {
+    const url = await this.campaignService.uploadMetadata({
+      file: file.buffer,
+      name: body.name,
+      description: body.description,
+    });
+
+    return {
+      data: { url },
+      message: 'File uploaded successfully',
     };
   }
 }

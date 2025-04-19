@@ -18,6 +18,10 @@ const createConfigFromEnvironment = (environment: NodeJS.ProcessEnv) => {
 
     // Error tracker
     // SENTRY_DSN: z.string()
+
+    // Pinata Configurations
+    PINATA_API_KEY: z.string(),
+    PINATA_SECRET_API_KEY: z.string(),
   });
 
   return {
