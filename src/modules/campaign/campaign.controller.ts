@@ -1,4 +1,14 @@
-import { Body, Controller, Get, NotFoundException, Param, Post, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+  BadRequestException,
+} from '@nestjs/common';
 import { CampaignService } from '@/modules/campaign/campaign.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('/campaign')
