@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
 import { CampaignService } from '@/modules/campaign/campaign.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('/campaign')
@@ -49,6 +49,21 @@ export class CampaignController {
   @Post('/upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadMetadata(@UploadedFile() file: Express.Multer.File, @Body() body: { name: string; description: string }) {
+    // Validate that file exists
+    if (!file) {
+      throw new BadRequestException('File is required');
+    }
+
+    // Validate that file has buffer
+    if (!file.buffer) {
+      throw new BadRequestException('File buffer is empty');
+    }
+
+    // Validate required body parameters
+    if (!body.name || !body.description) {
+      throw new BadRequestException('Name and description are required');
+    }
+
     const url = await this.campaignService.uploadMetadata({
       file: file.buffer,
       name: body.name,
